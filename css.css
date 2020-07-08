@@ -1,0 +1,50 @@
+body 
+{
+  padding: 0;
+  margin: 0;
+
+}
+
+h1
+{font:sans-serif;
+font-size:30px;
+text-align:center;
+}
+
+.sidebar
+{
+  height: 100%;
+  width:60%; 
+  position:fixed; 
+  z-index: 1000; 
+  top: 0;
+  right: 0;
+  background-color:#9CB1C4;
+}
+.contents
+{font-size:150%;
+margin-left:10%}
+
+img
+{
+  border:2% solid black;
+  display:block;
+  margin-bottom:2%;
+  margin-left:10%;
+  width:10%;
+  height:20%;
+
+}
+img:hover
+{background:lightgrey;
+cursor:pointer;
+}
+
+figure
+{display:flex;
+align-items: center;}
+figcaption
+{font:sans-serif;
+font-size:30px;
+text-align: center;
+}
