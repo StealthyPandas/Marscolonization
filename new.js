@@ -30,7 +30,7 @@ function reset(){
 function draw() {
     background(251);
     for(i = 0;i < 9; i++){
-        fill(200,0,250);
+        fill(65,105,225);
         strokeWeight(3);
         stroke(255);
         push();
