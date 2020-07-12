@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="">
 <body>
 <head>
@@ -7,23 +7,22 @@
   <title>Tic Tac Toe</title>
   <link rel="stylesheet" href="css.css" >
   </head>
-  <div class="sidebar">
-    <h1></h1>
+  <div class="sidebar" id="sidebar">
+    <h1>WELCOME TO TIC TAC TOE</h1>
     <div class="contents">
-          <div><label for="color">Set Background Color:</label>
+          <div class="label">
+          <label for="color">Set Background Color:</label>
           <input type="color" id="color" />
           <input type="button" onclick="changecolor()" value="Submit"/>
           </div>
-           <div>
+           <div class="label">
            <label for="No of Player">No of Player</label>
            <input type="number" id="playerno" min="1" max="2" value="1"/>
-          </div> 
-          <div>
-          <input type="button" onclick="reset()" value="RESET"/>
+           <div><input type="button" onclick="reset()" value="RESET" /></div>
+         </div> 
           </div>
-   </div>
     <figure>
-        <img src="male.png" alt=""onclick="image1()">
+        <img src="male.png" alt="" onclick="image1()">
         <figcaption id="change1"></figcaption>
     </figure>
 
