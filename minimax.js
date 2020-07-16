@@ -10,15 +10,8 @@ let player1 = 'X';
 let player2 = 'O';
 let currentPlayer;
 let playerinfo = -1;
-var imageclicked;
-let playercount = 1;
 let winner;
 
-function setplayer() {
-  var x = document.getElementById('playerno').value;
-  if (x == 1) { currentPlayer = player1; playerinfo = 1; }
-  else { currentPlayer = player1; playerinfo = 2; }
-}
 
 function setup() {
   createCanvas(750, 750);
@@ -26,7 +19,6 @@ function setup() {
   h = height / 3;
   let totalwidth = windowWidth * 0.47;
   width=totalwidth/3;
-  alert("Please select the no of players to start the game");
   let btn = select('#playagain');
   btn.mousePressed(newGame);
 }
@@ -41,6 +33,9 @@ function newGame() {
     ['', '', ''],
   ];
   winner = null;
+  document.getElementById("change2").innerHTML ='"AI Vs Human"';
+  document.getElementById("change1").innerHTML ='"Human Vs Human"';
+  playerinfo=-1;
   loop();
 }
 
@@ -123,6 +118,7 @@ function draw() {
       let y = h * j + h / 2;
       let spot = board[i][j];
       let r = w / 4;
+
       if (spot == player2) {
         noFill();
         ellipseMode(CENTER);
@@ -223,42 +219,32 @@ function minimax(board, depth, isMaximizing) {
   }
 }
 
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-  setup();
-}
 function myfunction(image) {
-  var name;
-  if (image == 3) {
-    name = 'AI';
-    greet(name);
-    playercount++;
-  }
-  if (playercount <= 2) {
-    name = prompt('Player ' + playercount + ': Enter Your Name');
-    if (name != null) { greet(name); }
+  var name=[" "," "];
+  if(image==1)
+  {var i=0;
+    while(i<2)
+    {name[i]= prompt('Player ' + (i+1) + ': Enter Your Name');
+     if (name[i]!= null) {i++;}
+     else { alert('Please enter your name!');
+     if (name[i]== null) {break;} 
+   }
+    }
+    if ((name[0]!=null)&&(name[1]!=null))
+    {document.getElementById("change1").innerHTML =name[0]+' Vs '+name[1];
+     playerinfo=2;
+    }
+   }
+  else if(image==2)
+    {var name;
+    name=prompt('Player 1 is AI\nPlayer 2 : Enter Your Name');
+    if (name!=null) {document.getElementById("change2").innerHTML ='AI Vs ' + name;}
     else { alert('Please enter your name!'); }
-  }
-  else { alert("Only 2 players are allowed !"); }
+    playerinfo=1;}
+
 }
 
-function image1() { imageclicked = 1; myfunction(1); }
-function image2() { imageclicked = 2; myfunction(2); }
-function image3() { imageclicked = 3; myfunction(3); }
 
-
-
-function greet(name) {
-  if (imageclicked == 1) { document.getElementById("change1").innerHTML = '  Player ' + playercount + ': ' + name; }
-
-  else if (imageclicked == 2) { document.getElementById("change2").innerHTML = '  Player ' + playercount + ': ' + name; }
-
-  else if (imageclicked == 3) { document.getElementById("change3").innerHTML = '  Player ' + playercount + ': AI'; }
-
-  if (playercount == 2) { alert('PLAY!'); }
-  playercount++;
-  input.value('');
-}
 function changecolor() {
   color = document.getElementById('color').value;
   document.getElementById('sidebar').style.backgroundColor = color;
