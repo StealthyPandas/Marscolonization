@@ -1,0 +1,252 @@
+let board = [
+  ['', '', ''],
+  ['', '', ''],
+  ['', '', '']
+];
+
+let width;
+let player1 = 'X';
+let player2 = 'O';
+let currentPlayer;
+let playerinfo=-1;
+var imageclicked;
+let playercount=1;
+
+function setplayer()
+{var x=document.getElementById('playerno').value;
+if(x==1)
+   {currentPlayer=player1; playerinfo=1;}
+else
+   {currentPlayer=player1; playerinfo=2;}
+}
+
+function setup() 
+{
+  createCanvas(windowWidth,windowHeight);
+  let totalwidth=windowWidth*0.47;
+  width=totalwidth/3;
+  alert("Please select the no of players to start the game");
+}
+
+function equals3(a, b, c) 
+{
+  return a == b && b == c && a != '';
+}
+
+function checkWinner() {
+  let winner = null;
+
+  // horizontal
+  for (let i = 0; i < 3; i++) {
+    if (equals3(board[i][0], board[i][1], board[i][2])) {
+      winner = board[i][0];
+    }
+  }
+
+  // Vertical
+  for (let i = 0; i < 3; i++) {
+    if (equals3(board[0][i], board[1][i], board[2][i])) {
+      winner = board[0][i];
+    }
+  }
+
+  // Diagonal
+  if (equals3(board[0][0], board[1][1], board[2][2])) {
+    winner = board[0][0];
+  }
+  if (equals3(board[2][0], board[1][1], board[0][2])) {
+    winner = board[2][0];
+  }
+
+  let openSpots = 0;
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (board[i][j] == '') {
+        openSpots++;
+      }
+    }
+  }
+
+  if (winner == null && openSpots == 0) {
+    return 'tie';
+  } else {
+    return winner;
+  }
+}
+
+function mousePressed() 
+{   let i = floor(mouseX /width);
+    let j = floor(mouseY /width);
+    if (board[i][j] == '') 
+    { if (playerinfo==2) 
+      {
+       board[i][j] =currentPlayer;
+       currentPlayer =currentPlayer==player1?player2:player1;
+    }
+      else if (playerinfo==1)       
+        {board[i][j] =player2;
+         currentPlayer = player1;
+         bestMove();}
+    }
+  
+}
+
+function draw() {
+  background(150);
+  strokeWeight(5);
+
+  line(width, 0,width,3*width);
+  line(width * 2, 0, width * 2,3*width);
+  line(0,width, 3*width,width);
+  line(0, width* 2,3*width, width* 2);
+
+  for (let j = 0; j < 3; j++) 
+  {
+    for (let i = 0; i < 3; i++) {
+      let x = width * i + width / 2;
+      let y = width * j + width/ 2;
+      let spot = board[i][j];
+      let r = width / 4;
+      if (spot ==player2) {
+        noFill();
+        ellipse(x, y, r * 2);
+      } else if (spot == player1) {
+        line(x - r, y - r, x + r, y + r);
+        line(x + r, y - r, x - r, y + r);
+      }
+    }
+  }
+
+  let result = checkWinner();
+  if (result != null) {
+    noLoop();
+    let resultP = createP('');
+    resultP.style('font-size', '32pt');
+    if (result == 'tie') {
+      resultP.html('Tie!');
+    } else {
+      resultP.html(`${result} wins!`);
+    }
+  }
+}
+
+
+function bestMove() {
+  // player1 to make its turn
+  let bestScore = -Infinity;
+  let move;
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      // Is the spot avplayer1lable?
+      if (board[i][j] == '') {
+        board[i][j] = player1;
+        let score = minimax(board, 0, false);
+        board[i][j] = '';
+        if (score > bestScore) {
+          bestScore = score;
+          move = { i, j };
+        }
+      }
+    }
+  }
+  board[move.i][move.j] = player1;
+  currentPlayer =player2;
+}
+
+let scores = {
+  X: 10,
+  O: -10,
+  tie: 0
+};
+
+function minimax(board, depth, isMaximizing) {
+  let result = checkWinner();
+  if (result !== null) {
+    return scores[result];
+  }
+
+  if (isMaximizing) {
+    let bestScore = -Infinity;
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        // Is the spot avplayer1lable?
+        if (board[i][j] == '') {
+          board[i][j] = player1;
+          let score = minimax(board, depth + 1, false);
+          board[i][j] = '';
+          bestScore = max(score, bestScore);
+        }
+      }
+    }
+    return bestScore;
+  } else {
+    let bestScore = Infinity;
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        // Is the spot avplayer1lable?
+        if (board[i][j] == '') {
+          board[i][j] =player2;
+          let score = minimax(board, depth + 1, true);
+          board[i][j] = '';
+          bestScore = min(score, bestScore);
+        }
+      }
+    }
+    return bestScore;
+  }
+}
+
+function windowResized() 
+{ 
+    resizeCanvas(windowWidth, windowHeight); 
+    setup();
+} 
+function myfunction(image)
+{var name;
+ if(image==3)
+    {
+    name='AI';
+    greet(name);
+    playercount++;
+    }
+ if(playercount<=2)
+  {
+  name=prompt('Player '+playercount+': Enter Your Name');
+  if(name!=null)
+   {greet(name);}
+  else
+   {alert('Please enter your name!');}
+  }
+  else
+  {alert("Only 2 players are allowed !");}
+}
+
+function image1()
+{imageclicked=1;myfunction(1);}
+function image2()
+{imageclicked=2;myfunction(2);}
+function image3()
+{imageclicked=3;myfunction(3);}
+
+
+
+function greet(name) 
+{ 
+  if(imageclicked==1)
+  {document.getElementById("change1").innerHTML = '  Player '+ playercount+': '+ name;} 
+
+  else if(imageclicked==2)
+  {document.getElementById("change2").innerHTML = '  Player '+ playercount+': '+ name;} 
+
+  else if(imageclicked==3)
+  {document.getElementById("change3").innerHTML = '  Player '+ playercount+': AI';} 
+ 
+ if(playercount==2)
+   {alert('PLAY!');}
+   playercount++;
+   input.value('');
+}
+function changecolor()
+{color=document.getElementById('color').value;
+document.getElementById('sidebar').style.backgroundColor=color;
+}

@@ -14,25 +14,24 @@ text-align:center;
 .sidebar
 {
   height: 100%;
-  width:59.6%; 
+  width:53%; 
   position:fixed; 
-  z-index:0; 
+  z-index: 0; 
   top: 0;
   right: 0;
   background-color:#9CB1C4;
 }
- .label
+
+.label
 {display:block;
 font-size:150%;
 text-align:center;
 font-weight:bold;
 margin-bottom:10px;
 }
-
 input
 {font-size:80%;
-margin-bottom:10px;
-}
+margin-bottom:10px;}
 
 img
 {
@@ -43,6 +42,7 @@ img
   height:8%;
   background-size:cover;
   overflow:hidden;
+
 }
 img:hover
 {background:lightgrey;
@@ -52,7 +52,6 @@ cursor:pointer;
 figure
 {display:flex;
 align-items: center;}
-
 figcaption
 {font:sans-serif;
 font-size:30px;

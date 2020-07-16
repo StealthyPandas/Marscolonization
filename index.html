@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="">
 <body>
 <head>
@@ -10,19 +10,20 @@
   <div class="sidebar" id="sidebar">
     <h1>WELCOME TO TIC TAC TOE</h1>
     <div class="contents">
-          <div class="label">
+      <div class="label">
           <label for="color">Set Background Color:</label>
           <input type="color" id="color" />
           <input type="button" onclick="changecolor()" value="Submit"/>
-          </div>
+           </div>
            <div class="label">
            <label for="No of Player">No of Player</label>
            <input type="number" id="playerno" min="1" max="2" value="1"/>
-           <div><input type="button" onclick="reset()" value="RESET" /></div>
-         </div> 
+           <input type="button" onclick="setplayer()" value="Submit"/>
+          <div><input type="button" onclick="reset()" value="RESET"/></div>
+          </div>
           </div>
     <figure>
-        <img src="male.png" alt="" onclick="image1()">
+        <img src="male.png" alt=""onclick="image1()">
         <figcaption id="change1"></figcaption>
     </figure>
 
@@ -41,7 +42,7 @@
   <script src="libraries/p5.js"></script>
   <script src="libraries/p5.sound.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.js"></script>
-  <script src="new.js"></script>
+  <script src="minimax.js"></script>
 
 </body>
 
