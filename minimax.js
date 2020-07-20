@@ -238,9 +238,9 @@ function myfunction(image) {
   else if(image==2)
     {var name;
     name=prompt('Player 1 is AI\nPlayer 2 : Enter Your Name');
-    if (name!=null) {document.getElementById("change2").innerHTML ='AI Vs ' + name;}
+    if (name!=null) {document.getElementById("change2").innerHTML ='AI Vs ' + name;playerinfo=1;}
     else { alert('Please enter your name!'); }
-    playerinfo=1;}
+    }
 
 }
 
