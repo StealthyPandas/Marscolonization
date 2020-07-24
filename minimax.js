@@ -13,7 +13,7 @@ let playerinfo = -1;
 let winner;
 
 
-function setup() {
+function setup() {                        //Creates the canvas and reset button
   createCanvas(750, 750);
   w = width / 3;
   h = height / 3;
@@ -23,10 +23,10 @@ function setup() {
   btn.mousePressed(newGame);
 }
 
-function equals3(a, b, c) {
-  return a == b && b == c && a != '';
+function equals3(a, b, c) {                 //condition for winning the game 
+  return a == b && b == c && a != '';   
 }
-function newGame() {
+function newGame() {                  // Resets the game to its original position
   board = [
     ['', '', ''],
     ['', '', ''],
@@ -39,10 +39,10 @@ function newGame() {
   loop();
 }
 
-function checkWinner() {
+function checkWinner() {                  //Checks for the winner based on the winning conditions
   winner = null;
   let pos = [height / 3 / 2, height / 2, height / 1.2];
-  // horizontal
+  // horizontal 
   strokeWeight(15);
   for (let i = 0; i < 3; i++) {
     if (equals3(board[i][0], board[i][1], board[i][2])) {
@@ -59,11 +59,12 @@ function checkWinner() {
     }
   }
 
-  // Diagonal
+  // Diagonal 
   if (equals3(board[0][0], board[1][1], board[2][2])) {
     winner = board[0][0];
     line(0, 0, width*3, height);
   }
+  //Diagonal 
   if (equals3(board[2][0], board[1][1], board[0][2])) {
     winner = board[2][0];
     line(width*3, 0, 0, height);
@@ -85,15 +86,15 @@ function checkWinner() {
   }
 }
 
-function mousePressed() {
+function mousePressed() {                 //For interacting with the board while clicking the position
   let i = floor(mouseX / width);
   let j = floor(mouseY / width);
   if (board[i][j] == '') {
-    if (playerinfo == 2) {
+    if (playerinfo == 2) {                //For human Vs human - selecting the next player turns
       board[i][j] = currentPlayer;
       currentPlayer = currentPlayer == player1 ? player2 : player1;
     }
-    else if (playerinfo == 1) {
+    else if (playerinfo == 1) {          //For AI Vs human -checking if its AI's turn 
       board[i][j] = player2;
       currentPlayer = player1;
       bestMove();
@@ -102,7 +103,7 @@ function mousePressed() {
 
 }
 
-function draw() {
+function draw() {                   // For creating other details of the board such as drawing the grids, x's and o's
   background(0);
   strokeWeight(8);
   stroke(192,192,192);
@@ -119,18 +120,18 @@ function draw() {
       let spot = board[i][j];
       let r = w / 4;
 
-      if (spot == player2) {
+      if (spot == player2) {          //Draws O
         noFill();
         ellipseMode(CENTER);
         ellipse(x, y, w / 2);
-      } else if (spot == player1) {
+      } else if (spot == player1) {     //Drwas X
         line(x - r, y - r, x + r, y + r);
         line(x + r, y - r, x - r, y + r);
       }
     }
   }
 
-  let result = checkWinner();
+  let result = checkWinner();          // Checks for winner and displays it on the board
   if (result != null) {
     noLoop();
     let resultP = createP('');
@@ -154,13 +155,13 @@ function draw() {
 }
 
 
-function bestMove() {
+function bestMove() {                    //checks for the optimal move for AI to make
   // player1 to make its turn
   let bestScore = -Infinity;
   let move;
   for (let i = 0; i < 3; i++) {
     for (let j = 0; j < 3; j++) {
-      // Is the spot avplayer1lable?
+      // Is the spot available?
       if (board[i][j] == '') {
         board[i][j] = player1;
         let score = minimax(board, 0, false);
@@ -176,23 +177,23 @@ function bestMove() {
   currentPlayer = player2;
 }
 
-let scores = {
+let scores = {      
   X: 10,
   O: -10,
   tie: 0
 };
 
-function minimax(board, depth, isMaximizing) {
-  let result = checkWinner();
+function minimax(board, depth, isMaximizing) {      //Minimax function evluates the best move from the available spots on the board
+  let result = checkWinner();                      
   if (result !== null) {
     return scores[result];
   }
 
-  if (isMaximizing) {
-    let bestScore = -Infinity;
+  if (isMaximizing) {                           //if minimax function does not find a terminal state, it keeps recursively going level by level 
+    let bestScore = -Infinity;                  //deeper into the game. It happens until it reaches a terminal state and returns a score for the above level.
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        // Is the spot avplayer1lable?
+        // Is the spot available?
         if (board[i][j] == '') {
           board[i][j] = player1;
           let score = minimax(board, depth + 1, false);
@@ -206,7 +207,7 @@ function minimax(board, depth, isMaximizing) {
     let bestScore = Infinity;
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        // Is the spot avplayer1lable?
+        // Is the spot available?
         if (board[i][j] == '') {
           board[i][j] = player2;
           let score = minimax(board, depth + 1, true);
@@ -219,7 +220,7 @@ function minimax(board, depth, isMaximizing) {
   }
 }
 
-function myfunction(image) {
+function myfunction(image) {               //Allows the frontend details to function such as button images, players name etc.
   var name=[" "," "];
   if(image==1)
   {var i=0;
@@ -245,7 +246,7 @@ function myfunction(image) {
 }
 
 
-function changecolor() {
+function changecolor() {                             // changes the background color for the screen 
   color = document.getElementById('color').value;
   document.getElementById('sidebar').style.backgroundColor = color;
 }
