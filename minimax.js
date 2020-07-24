@@ -165,15 +165,15 @@ function bestMove() {                    //checks for the optimal move for AI to
       if (board[i][j] == '') {
         board[i][j] = player1;
         let score = minimax(board, 0,-Infinity,+Infinity, false);
-        board[i][j] = '';
-        if (score > bestScore) {
-          bestScore = score;
+        board[i][j] = '';                   // if board is available we try going there and call minimax on the board to get the score 
+        if (score > bestScore) {            // of that position. 
+          bestScore = score;               //compare the score with the bestscore 
           move = { i, j };
         }
       }
     }
   }
-  board[move.i][move.j] = player1;
+  board[move.i][move.j] = player1;               
   currentPlayer = player2;
 }
 
@@ -194,7 +194,7 @@ function minimax(board, depth,alpha,beta, isMaximizing) {      //Minimax functio
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
         // Is the spot available?
-        if (board[i][j] == '') {
+        if (board[i][j] == '') {                     
           board[i][j] = player1;
           let score = minimax(board, depth + 1,alpha,beta, false);
           board[i][j] = '';
