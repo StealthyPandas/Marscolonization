@@ -193,7 +193,7 @@ function minimax(board, depth, isMaximizing) {      //Minimax function evluates 
     let bestScore = -Infinity;                  //deeper into the game. It happens until it reaches a terminal state and returns a score for the above level.
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        // Is the spot avplayer1lable?
+        // Is the spot available?
         if (board[i][j] == '') {
           board[i][j] = player1;
           let score = minimax(board, depth + 1, false);
@@ -207,7 +207,7 @@ function minimax(board, depth, isMaximizing) {      //Minimax function evluates 
     let bestScore = Infinity;
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        // Is the spot avplayer1lable?
+        // Is the spot available?
         if (board[i][j] == '') {
           board[i][j] = player2;
           let score = minimax(board, depth + 1, true);
