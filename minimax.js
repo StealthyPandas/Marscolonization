@@ -231,7 +231,8 @@ function minimax(board, depth,alpha,beta, isMaximizing) {      //Minimax functio
 function myfunction(image) {               //Allows the frontend details to function such as button images, players name etc.
   var name=[" "," "];
   if(image==1)
-  {var i=0;
+  { currentPlayer=player1;
+    var i=0;
     while(i<2)
     {name[i]= prompt('Player ' + (i+1) + ': Enter Your Name');
      if (name[i]!= null) {i++;}
