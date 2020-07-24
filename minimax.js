@@ -164,7 +164,7 @@ function bestMove() {                    //checks for the optimal move for AI to
       // Is the spot available?
       if (board[i][j] == '') {
         board[i][j] = player1;
-        let score = minimax(board, 0, false);
+        let score = minimax(board, 0,-Infinity,+Infinity, false);
         board[i][j] = '';
         if (score > bestScore) {
           bestScore = score;
@@ -183,7 +183,7 @@ let scores = {
   tie: 0
 };
 
-function minimax(board, depth, isMaximizing) {      //Minimax function evluates the best move from the available spots on the board
+function minimax(board, depth,alpha,beta, isMaximizing) {      //Minimax function evluates the best move from the available spots on the board
   let result = checkWinner();                      
   if (result !== null) {
     return scores[result];
@@ -196,9 +196,13 @@ function minimax(board, depth, isMaximizing) {      //Minimax function evluates 
         // Is the spot available?
         if (board[i][j] == '') {
           board[i][j] = player1;
-          let score = minimax(board, depth + 1, false);
+          let score = minimax(board, depth + 1,alpha,beta, false);
           board[i][j] = '';
           bestScore = max(score, bestScore);
+          alpha = max(alpha, score);
+          if (beta <= alpha) {
+            break;
+          }
         }
       }
     }
@@ -210,9 +214,13 @@ function minimax(board, depth, isMaximizing) {      //Minimax function evluates 
         // Is the spot available?
         if (board[i][j] == '') {
           board[i][j] = player2;
-          let score = minimax(board, depth + 1, true);
+          let score = minimax(board, depth + 1,alpha,beta, true);
           board[i][j] = '';
           bestScore = min(score, bestScore);
+          beta = min(beta, score);
+          if (beta <= alpha) {
+            break;
+          }
         }
       }
     }
